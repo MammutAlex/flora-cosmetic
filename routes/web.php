@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WebController@index')->name('index');
+Route::get('/about', 'WebController@about')->name('about');
+Route::get('/product/{id}', 'WebController@product')->name('product');
+
+Auth::routes();

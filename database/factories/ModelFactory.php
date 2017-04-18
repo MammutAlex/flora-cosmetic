@@ -16,9 +16,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
 });
+$factory->define(\App\Product::class, function (Faker\Generator $faker) {
+    return [
+        'photo'  => '/images/products/pd1.jpg',
+        'tag_id' => function () {
+            return \App\Tag::inRandomOrder()->first()->id;
+        },
+        'images' => '/images/products/pd2.jpg,/images/products/pd3.jpg,/images/products/pd4.jpg',
+        'text'   => $faker->text($maxNbChars = 200),
+        'title'  => $faker->text($maxNbChars = 6),
+        'price'  => $faker->randomFloat($nbMaxDecimals = null, $min = 0, $max = 500),
+    ];
+});
+
